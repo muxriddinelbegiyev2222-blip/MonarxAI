@@ -1,4 +1,4 @@
-"""SQLite asosidagi chat bazasi."""
+"""MonarxAI — SQLite asosidagi chat bazasi."""
 import sqlite3
 from datetime import datetime
 from security import shifrla, deshifrla
