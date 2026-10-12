@@ -8,7 +8,7 @@ import urllib.parse
 MATN_PROVAYDERLAR = {
     "gemini": {
         "url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
-        "model": "gemini-3.5-flash-lite",  # Eng yangi model
+        "model": "gemini-2.0-flash",
         "kalit_nomi": "GEMINI_API_KEY"
     },
     "groq": {
@@ -18,7 +18,7 @@ MATN_PROVAYDERLAR = {
     },
     "openrouter": {
         "url": "https://openrouter.ai/api/v1/chat/completions",
-        "model": "deepseek/deepseek-r1:free",  # Bepul va kuchli model
+        "model": "deepseek/deepseek-r1:free",
         "kalit_nomi": "OPENROUTER_API_KEY"
     },
     "cerebras": {
@@ -33,7 +33,6 @@ MATN_PROVAYDERLAR = {
     },
 }
 
-# Mavzuga qarab matn provayderlarini tanlash tartibi
 MAVZU_TARTIBI = {
     "kod": ["groq", "cerebras", "openrouter", "gemini", "mistral"],
     "umumiy": ["gemini", "groq", "openrouter", "mistral", "cerebras"],
@@ -66,7 +65,6 @@ def matn_sorov(provayder: str, kalitlar: dict, xabarlar: list) -> str:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
     }
 
-    # OpenRouter uchun qo'shimcha sarlavhalar
     if provayder == "openrouter":
         headers["HTTP-Referer"] = "https://github.com/muxriddinbelgiyev2222-blip/MonarxAI"
         headers["X-Title"] = "MonarxAI"
@@ -121,9 +119,8 @@ def matn_router(xabarlar: list, kalitlar: dict) -> str:
     return "Barcha matn provayderlari ishlamadi:\n" + "\n".join(xatolar)
 
 
-# --- Rasm Yaratish: Pollinations (API kalitsiz, bepul) ---
 def rasm_yarat(prompt: str, model: str = "flux", width: int = 1024, height: int = 1024) -> str:
-    """Pollinations orqali bepul rasm yaratadi. Rasm URL manzilini qaytaradi."""
+    """Pollinations orqali bepul rasm yaratadi. URL qaytaradi."""
     encoded = urllib.parse.quote(prompt)
     url = (
         f"https://image.pollinations.ai/prompt/{encoded}"
@@ -132,12 +129,11 @@ def rasm_yarat(prompt: str, model: str = "flux", width: int = 1024, height: int 
     return url
 
 
-# --- Video Yaratish: Magic Hour (400 bepul kredit + kuniga 100) ---
 def video_yarat(prompt: str, kalitlar: dict, model: str = "wan-2.2", duration: int = 5) -> str:
-    """Magic Hour orqali video yaratadi. Video URL manzilini qaytaradi."""
+    """Magic Hour orqali video yaratadi."""
     kalit = kalitlar.get("MAGIC_HOUR_API_KEY")
     if not kalit:
-        return "XATO: MAGIC_HOUR_API_KEY topilmadi. magichour.ai/developer saytidan bepul kalit oling."
+        return "XATO: MAGIC_HOUR_API_KEY topilmadi. magichour.ai saytidan bepul kalit oling."
 
     data = json.dumps({
         "prompt": prompt,
