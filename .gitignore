@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+*.spec
+*.db
+*.enc
+*.hash
+salt.bin
+.idea/
+.vscode/
