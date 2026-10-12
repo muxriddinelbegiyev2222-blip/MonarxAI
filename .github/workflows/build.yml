@@ -15,16 +15,16 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install cryptography pyinstaller
+        pip install cryptography customtkinter pyinstaller
 
     - name: Build EXE
       run: |
-        pyinstaller --onefile --name MonarxAI --console --hidden-import cryptography main.py
+        pyinstaller --onefile --windowed --name MonarxAI --hidden-import cryptography --hidden-import customtkinter --collect-all customtkinter main.py
 
     - name: Upload EXE
       uses: actions/upload-artifact@v4
